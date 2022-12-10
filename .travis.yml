@@ -1,0 +1,21 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+#cache:
+#  directories:
+#    - '$HOME/.m2/repository'
+
+#before_install:
+# - chmod +x gradlew
+
+script:
+  - mvn clean package -DskipTests=true
+
+branches:
+  only:
+    - main
+
+notifications:
+  email: false
