@@ -36,5 +36,3 @@ workflows:
           requires:
             - orb-tools/publish
           vcs-type: << pipeline.project.type >>
-    steps:
-      - run: echo "A first hello"
