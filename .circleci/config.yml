@@ -1,7 +1,40 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10
+version: '2.1'
+orbs:
+  orb-tools: circleci/orb-tools@11.1
+
+workflows:
+  lint-pack:
+    jobs:
+      - orb-tools/lint:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools/pack:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools/review:
+          filters:
+            tags:
+              only: /.*/
+      - orb-tools/publish:
+          context: publishing-context
+          filters:
+            tags:
+              only: /.*/
+          orb-name: circleci/orb-tools
+          requires:
+            - orb-tools/lint
+            - orb-tools/review
+            - orb-tools/pack
+          vcs-type: << pipeline.project.type >>
+      - orb-tools/continue:
+          filters:
+            tags:
+              only: /.*/
+          pipeline-number: << pipeline.number >>
+          requires:
+            - orb-tools/publish
+          vcs-type: << pipeline.project.type >>
     steps:
       - run: echo "A first hello"
