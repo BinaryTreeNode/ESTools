@@ -1,0 +1,36 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
+spring:
+  main:
+    allow-circular-references: true
+
+  mvc:    
+    pathmatch:      
+      matching-strategy: ant_path_matcher
+#  profiles:
+#    active: dev
+
+logging:
+  #logback.xml优先级高，如无特殊需求可不使用
+  config: classpath:logback.xml
+  file:
+    name: ./log/Test.log
+  level:
+    xatu.zsl: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: info
+    org.hibernate: error
+    com.bj58: info
+  pattern:
+    console: "%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"
+    file: "%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"
+
+testfile:
+    sourcefile: tmp.txt
+    queryfile: term_query
+    fieldconfig: fieldConfigTest.txt
+
+
+
