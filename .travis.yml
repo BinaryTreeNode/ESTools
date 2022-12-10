@@ -1,7 +1,7 @@
 language: java
 
 jdk:
-  - oraclejdk8
+  - oraclejdk 1.9
 
 #cache:
 #  directories:
@@ -12,6 +12,7 @@ jdk:
 
 script:
   - mvn clean package -DskipTests=true
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 branches:
   only:
