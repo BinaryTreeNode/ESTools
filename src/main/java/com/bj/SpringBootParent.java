@@ -20,7 +20,6 @@ public class SpringBootParent {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootParent.class, args);
-
     }
 }
 

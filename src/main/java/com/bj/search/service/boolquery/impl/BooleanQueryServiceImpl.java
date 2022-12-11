@@ -6,10 +6,8 @@ import com.bj.search.service.boolquery.BooleanQueryService;
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryMapper;
 import com.bj.search.entity.boolQuery.QueryTypes;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -78,63 +76,6 @@ public class BooleanQueryServiceImpl implements BooleanQueryService {
         }
 
         log.info("out======" + outer.toString());
-        return outer;
-    }
-
-
-    @Override
-    public ObjectNode booleanQueryMakerMulti(
-            int width,
-            int depth,
-            CompoundQueryTypes[] boolens,
-            QueryTypes[] queries,
-            JSONObject js,
-            JSONObject primaryJson,
-            ArrayNode storeFields,
-            CompoundQueryTypes type) {
-        if (width == 0 || depth == 0)
-            return JsonUtil.createObjectNode();
-
-        ObjectNode outer = JsonUtil.createObjectNode();
-        ObjectNode inner = JsonUtil.createObjectNode();
-        int pos;
-        if (depth == 1) {//无论width设置为多少，都只会有一个简单查询，不和bool结合
-            if (js.size() > 0) {
-                pos = queries.length > 0 ? r.nextInt(queries.length) : 0;
-                JSONObject keyValue = testData.getFieldValue(js, primaryJson);
-                ObjectNode node = queryMapper.get(queries[pos]).termLevelQueryMakerMulti(keyValue.getString("field"), keyValue.get("value"), storeFields, type);
-                outer.put(queries[pos].getName(), node.get(queries[pos].getName()));
-            }
-        } else {
-            boolean shouldFlag = false;
-            for (int i = 0; i < width; ++i) {
-                if (js.size() == 0) break;
-                pos = boolens.length > 0 ? r.nextInt(boolens.length) : 0;
-                if (!shouldFlag) {
-                    shouldFlag = (boolens[pos] == CompoundQueryTypes.SHOULD) ? true : false;
-                }
-                ObjectNode node = queryMapper.get(boolens[pos]).queryMakerMulti(width, depth, boolens, queries, js, primaryJson, storeFields);
-                inner.putAll(node);
-            }
-            if (shouldFlag) {
-                String[] shouldMatchArr = {"404", "1", "-75%", "2 < 25%"};
-                int matchRandom = (int) (Math.random() * shouldMatchArr.length);
-                String match = shouldMatchArr[matchRandom];
-                if (!match.equals("404")) {
-                    inner.put("minimum_should_match", match);
-                }
-            }
-
-            if (Math.random() > 0.5) {
-                String str = String.format("%.2f", Math.random() * 10);
-                double boost = Double.parseDouble(str);
-                inner.put("boost", boost);
-            }
-            outer.put("bool", inner);
-        }
-
-        log.info("out======" + outer.toString());
-
         return outer;
     }
 
