@@ -10,6 +10,9 @@ jobs:
       MVN_ARGS: -Dmaven.repo.local=.repo
     steps:
       - checkout
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools
       - run: java --version
       - restore_cache:
           keys:
@@ -27,6 +30,11 @@ jobs:
           root: ~/
           paths:
             - ESTools
+      - run:
+          command: "if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then mvn versions:set -DremoveSnapshot; fi;\n\
+              echo $(mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec)-$(echo $CIRCLE_SHA1 | cut -c -7)-$CIRCLE_BUILD_NUM > tempvers.txt\n\
+              mvn versions:set -DnewVersion=$(cat tempvers.txt) \n"
+          name: "remove snapshot version"
 
   test:
     docker:
@@ -60,6 +68,8 @@ workflows:
   version: 2
   ESTools-workflow:
     jobs:
+      - build:
+          context: SonarCloud
       - build:
           filters:
             branches:
