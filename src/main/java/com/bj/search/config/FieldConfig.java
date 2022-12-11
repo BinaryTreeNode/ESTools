@@ -1,5 +1,6 @@
 package com.bj.search.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Properties;
  * @modified By：
  * @version:
  */
+@Slf4j
 @Service
 public class FieldConfig {
 
@@ -23,19 +25,17 @@ public class FieldConfig {
     private Properties conf = new Properties();
 
     @PostConstruct
-    public void FieldConfigInit() {
-        FileInputStream confFile;
+    public void FieldConfigInit() throws IOException {
+        FileInputStream confFile = null;
         try {
         	String filePath = outputProperties.getFieldconfig();
             confFile = new FileInputStream(filePath);
             conf.load(confFile);
-            System.out.println("confFile=================="+filePath);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+            log.info("confFile=================="+filePath);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } finally {
+            confFile.close();
         }
     }
 

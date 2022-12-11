@@ -1,8 +1,8 @@
-package com.bj.search.service.boolenquery.impl;
+package com.bj.search.service.boolquery.impl;
 
 import com.bj.search.common.utils.GetFieldAndValue;
 import com.bj.search.common.utils.JsonUtil;
-import com.bj.search.service.boolenquery.CompoundQueryService;
+import com.bj.search.service.boolquery.CompoundQueryService;
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryMapper;
 import com.bj.search.entity.boolQuery.QueryTypes;
@@ -46,7 +46,7 @@ public class ShouldQueryImpl implements CompoundQueryService {
             } else {
                 depth--;
                 for (int i = 0; i < width; ++i) {
-                    inner.add(booleanQueryServiceImpl.boolenQueryMaker(width, depth, boolens, queries, field, value));
+                    inner.add(booleanQueryServiceImpl.booleanQueryMaker(width, depth, boolens, queries, field, value));
                 }
             }
             outer.put("should", inner);
@@ -75,7 +75,7 @@ public class ShouldQueryImpl implements CompoundQueryService {
                 depth--;
                 for (int i = 0; i < width; ++i) {
                     if (js.size() == 0) break;
-                    inner.add(booleanQueryServiceImpl.boolenQueryMakerMulti(width, depth, boolens, queries, js, primaryJson, storeFields, CompoundQueryTypes.SHOULD));
+                    inner.add(booleanQueryServiceImpl.booleanQueryMakerMulti(width, depth, boolens, queries, js, primaryJson, storeFields, CompoundQueryTypes.SHOULD));
                 }
             }
             outer.put("should", inner);

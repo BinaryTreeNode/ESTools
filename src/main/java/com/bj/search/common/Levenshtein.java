@@ -128,15 +128,6 @@ public class Levenshtein {
         return 1 - (float) compare(orig, target) / Math.max(orig.length, target.length);
     }
 
-	/**
-	 *
-	 * @param orig
-	 * @param target
-	 */
-	public void validate(Object orig, Object target) {
-
-	}
-
     public static void main(String[] args) throws Exception {
         Long[] info0 = {123L, 567L, 45L};
         Long[] info1 = {123L, 12L, 567L};

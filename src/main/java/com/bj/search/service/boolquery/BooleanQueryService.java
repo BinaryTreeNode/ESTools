@@ -1,4 +1,4 @@
-package com.bj.search.service.boolenquery;
+package com.bj.search.service.boolquery;
 
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryTypes;
@@ -12,7 +12,7 @@ import net.sf.json.JSONObject;
  * @modified By：
  * @version:
  */
-public interface BoolenQueryService {
+public interface BooleanQueryService {
 
     /***
      * create boolean query cases
@@ -22,7 +22,7 @@ public interface BoolenQueryService {
      * @param queries
      * @return
      */
-    ObjectNode boolenQueryMaker(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, String[] field, Object[] value);
-    ObjectNode boolenQueryMakerMulti(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, JSONObject js, JSONObject primaryJson, ArrayNode storeFields, CompoundQueryTypes type);
+    ObjectNode booleanQueryMaker(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, String[] field, Object[] value);
+    ObjectNode booleanQueryMakerMulti(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, JSONObject js, JSONObject primaryJson, ArrayNode storeFields, CompoundQueryTypes type);
 
 }

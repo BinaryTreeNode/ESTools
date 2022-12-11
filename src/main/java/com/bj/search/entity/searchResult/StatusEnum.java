@@ -10,7 +10,6 @@ import lombok.Getter;
  */
 @Getter
 public enum StatusEnum {
-
     SEARCH_SUCCESS(200),
     INDEX_CREATED(201),
     BAD_REQUEST(400),

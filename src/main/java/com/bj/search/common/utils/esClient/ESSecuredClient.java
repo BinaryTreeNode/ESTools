@@ -18,7 +18,6 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
@@ -58,7 +57,7 @@ public class ESSecuredClient {
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(userName, password));
         SSLContext sc = null;
         try {
-            sc = SSLContext.getInstance("SSL");
+            sc = SSLContext.getInstance("TLSv1.1");
             sc.init(null, trustAllCerts, new SecureRandom());
         } catch (KeyManagementException e) {
             e.printStackTrace();
@@ -74,10 +73,12 @@ public class ESSecuredClient {
 
     static TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
         @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] chain, String authType) {
+            // default implementation ignored
         }
         @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] chain, String authType) {
+            // default implementation ignored
         }
         @Override
         public X509Certificate[] getAcceptedIssuers() {

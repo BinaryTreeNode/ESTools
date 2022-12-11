@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,24 +19,15 @@ import java.util.Map;
  * @author Yang Li
  * @date 2022/12/8 10:02 上午
  */
+@NoArgsConstructor
 public class JsonUtil {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
-//        OBJECT_MAPPER.enable(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER);
-//        OBJECT_MAPPER.enable(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS);
-//        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-//        OBJECT_MAPPER.disable(MapperFeature.DEFAULT_VIEW_INCLUSION);
-//        OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         OBJECT_MAPPER.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
         OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_READING_DUP_TREE_KEY, true);
-        // 不用@JsonSerialize和@JsonDeserialize注解时通过下面的代码注册解析器
-//        SimpleModule module = new SimpleModule();
-//        module.addSerializer(GeoDistanceQueryBuilder.class, new GeoDistanceQueryBuilder.GeoDistanceSerializer());
-//        module.addDeserializer(GeoDistanceQueryBuilder.class, new GeoDistanceQueryBuilder.GeoDistanceJsonDeserializer());
-//        OBJECT_MAPPER.registerModule(module);
     }
 
     public static String toJsonString(Object object) throws Exception {
@@ -90,7 +82,7 @@ public class JsonUtil {
         }
     }
 
-    public static List<Object> convertJsonNode2List(JsonNode jsonNode) {
+    public static List<Object> convertJsonNode2List(JsonNode jsonNode) throws Throwable{
         try {
             return OBJECT_MAPPER.convertValue(jsonNode, List.class);
         } catch (IllegalArgumentException e) {

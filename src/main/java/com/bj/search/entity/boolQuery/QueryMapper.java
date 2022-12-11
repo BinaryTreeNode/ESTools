@@ -1,11 +1,11 @@
 package com.bj.search.entity.boolQuery;
 
 
-import com.bj.search.service.boolenquery.CompoundQueryService;
-import com.bj.search.service.boolenquery.impl.FilterQueryImpl;
-import com.bj.search.service.boolenquery.impl.MustNotQueryImpl;
-import com.bj.search.service.boolenquery.impl.MustQueryImpl;
-import com.bj.search.service.boolenquery.impl.ShouldQueryImpl;
+import com.bj.search.service.boolquery.CompoundQueryService;
+import com.bj.search.service.boolquery.impl.FilterQueryImpl;
+import com.bj.search.service.boolquery.impl.MustNotQueryImpl;
+import com.bj.search.service.boolquery.impl.MustQueryImpl;
+import com.bj.search.service.boolquery.impl.ShouldQueryImpl;
 import com.bj.search.service.singlequeries.SingleQueriesService;
 import com.bj.search.service.singlequeries.impl.TermQueryImpl;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.bj.search.service.boolenquery;
+package com.bj.search.service.boolquery;
 
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryTypes;

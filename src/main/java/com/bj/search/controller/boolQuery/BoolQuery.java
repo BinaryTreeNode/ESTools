@@ -4,7 +4,7 @@ import com.bj.search.common.utils.JsonUtil;
 import com.bj.search.config.OutputProperties;
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryTypes;
-import com.bj.search.service.boolenquery.BoolenQueryService;
+import com.bj.search.service.boolquery.BooleanQueryService;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -29,7 +29,7 @@ import java.util.List;
 public class BoolQuery {
 
     @Autowired
-    BoolenQueryService boolenQueryService;
+    BooleanQueryService booleanQueryService;
 
     @Autowired
     OutputProperties outputProperties;
@@ -40,11 +40,11 @@ public class BoolQuery {
      * @return
      */
     @Operation(summary = "create query without key and value")
-    @GetMapping("/createQueryNoValue")
+    @PostMapping("/createQueryNoValue")
     public ObjectNode createBooleanSingle(@RequestParam(required = false, defaultValue = "4") int width,
                                           @RequestParam(required = false, defaultValue = "2") int depth) {
 
-        ObjectNode objectNode = boolenQueryService.boolenQueryMaker(
+        ObjectNode objectNode = booleanQueryService.booleanQueryMaker(
                 width,
                 depth,
                 new CompoundQueryTypes[]{CompoundQueryTypes.FILTER, CompoundQueryTypes.MUST, CompoundQueryTypes.MUSTNOT, CompoundQueryTypes.SHOULD},
@@ -76,7 +76,7 @@ public class BoolQuery {
             primaryJson.put("value", data.getLong("infoId"));
         }
 
-        ObjectNode objectNode = boolenQueryService.boolenQueryMakerMulti(
+        ObjectNode objectNode = booleanQueryService.booleanQueryMakerMulti(
                 width,
                 depth,
                 new CompoundQueryTypes[]{CompoundQueryTypes.FILTER, CompoundQueryTypes.MUST, CompoundQueryTypes.MUSTNOT, CompoundQueryTypes.SHOULD},

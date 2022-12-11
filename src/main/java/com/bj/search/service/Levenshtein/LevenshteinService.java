@@ -12,7 +12,5 @@ import java.io.IOException;
  */
 public interface LevenshteinService {
 
-//    JsonNode search(long[] wordsA, long[] wordsB) throws IOException;
-
     JsonNode search(Object wordsA, Object wordsB) throws IOException;
 }

@@ -23,11 +23,11 @@ public class TermQueryImpl implements SingleQueriesService {
     @Autowired
     FieldConfig fieldConfig;
 
+    Random r = new Random();
+
     public ObjectNode termLevelQueryMaker(String[] field, Object[] value) {
         ObjectNode outer = JsonUtil.createObjectNode();
         ObjectNode inner = JsonUtil.createObjectNode();
-        //随机
-        Random r = new Random();
         int rf = field.length > 0 ? r.nextInt(field.length) : 0;
         int rv = value.length > 0 ? r.nextInt(value.length) : 0;
 
@@ -95,12 +95,5 @@ public class TermQueryImpl implements SingleQueriesService {
             inner.put(field, Long.valueOf(value.toString()));
         }
         return inner;
-    }
-
-    public static void main(String[] args) {
-        TermQueryImpl termQuery = new TermQueryImpl();
-        for (int i = 0; i < 10; i++) {
-            System.out.println(termQuery.termLevelQueryMakerMulti("id", 1.3, JsonUtil.createArrayNode(), CompoundQueryTypes.MUST));
-        }
     }
 }

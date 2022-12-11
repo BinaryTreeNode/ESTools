@@ -1,8 +1,8 @@
-package com.bj.search.service.boolenquery.impl;
+package com.bj.search.service.boolquery.impl;
 
 import com.bj.search.common.utils.GetFieldAndValue;
 import com.bj.search.common.utils.JsonUtil;
-import com.bj.search.service.boolenquery.CompoundQueryService;
+import com.bj.search.service.boolquery.CompoundQueryService;
 import com.bj.search.entity.boolQuery.CompoundQueryTypes;
 import com.bj.search.entity.boolQuery.QueryMapper;
 import com.bj.search.entity.boolQuery.QueryTypes;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @version:
  */
 @Service
-public class MustNotQueryImpl implements CompoundQueryService {
+public class FilterQueryImpl implements CompoundQueryService {
 
     @Autowired
     BooleanQueryServiceImpl booleanQueryServiceImpl;
@@ -31,6 +31,7 @@ public class MustNotQueryImpl implements CompoundQueryService {
 
     @Override
     public ObjectNode queryMaker(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, String[] field, Object[] value){
+
         if((depth > 0 && (boolens == null || boolens.length == 0))
                 || (depth == 0 && (queries == null || queries.length == 0)))
             return null;
@@ -46,10 +47,10 @@ public class MustNotQueryImpl implements CompoundQueryService {
             } else {
                 depth--;
                 for(int i = 0; i < width; ++i){
-                    inner.add(booleanQueryServiceImpl.boolenQueryMaker(width, depth, boolens, queries, field, value));
+                    inner.add(booleanQueryServiceImpl.booleanQueryMaker(width, depth, boolens, queries, field, value));
                 }
             }
-            outer.put("must_not", inner);
+            outer.put("filter", inner);
         } else {
             outer.putAll(queryMapper.get(QueryTypes.TERM).termLevelQueryMaker(field, value));
         }
@@ -57,9 +58,9 @@ public class MustNotQueryImpl implements CompoundQueryService {
     }
 
     @Override
-    public ObjectNode queryMakerMulti(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, JSONObject js,JSONObject primaryJson,ArrayNode storeFields){
-        if((depth > 0 && (boolens == null || boolens.length == 0))
-                || (depth == 0 && (queries == null || queries.length == 0)))
+    public ObjectNode queryMakerMulti(int width, int depth, CompoundQueryTypes[] boolens, QueryTypes[] queries, JSONObject js,JSONObject primaryJson, ArrayNode storeFields){
+
+        if((depth > 0 && (boolens == null || boolens.length == 0)) || (depth == 0 && (queries == null || queries.length == 0)))
             return null;
 
         ObjectNode outer = JsonUtil.createObjectNode();
@@ -70,20 +71,20 @@ public class MustNotQueryImpl implements CompoundQueryService {
                 for(int i = 0; i < width; ++i){
                     if(js.size() == 0) break;
                     JSONObject keyValue = testData.getFieldValue(js,primaryJson);
-                    inner.add(queryMapper.get(QueryTypes.TERM).termLevelQueryMakerMulti(keyValue.getString("field"),keyValue.get("value"),storeFields,CompoundQueryTypes.MUSTNOT));
+                    inner.add(queryMapper.get(QueryTypes.TERM).termLevelQueryMakerMulti(keyValue.getString("field"), keyValue.get("value"),storeFields,CompoundQueryTypes.FILTER));
                 }
             } else {
                 depth--;
                 for(int i = 0; i < width; ++i){
                     if(js.size() == 0) break;
-                    inner.add(booleanQueryServiceImpl.boolenQueryMakerMulti(width, depth, boolens, queries,js,primaryJson,storeFields,CompoundQueryTypes.MUSTNOT));
+                    inner.add(booleanQueryServiceImpl.booleanQueryMakerMulti(width, depth, boolens, queries,js,primaryJson,storeFields,CompoundQueryTypes.FILTER));
                 }
             }
-            outer.put("must_not", inner);
+            outer.put("filter", inner);
         } else {
             if(js.size() > 0) {
                 JSONObject keyValue = testData.getFieldValue(js,primaryJson);
-                outer.putAll(queryMapper.get(QueryTypes.TERM).termLevelQueryMakerMulti(keyValue.getString("field"), keyValue.get("value"), storeFields,CompoundQueryTypes.MUSTNOT));
+                outer.putAll(queryMapper.get(QueryTypes.TERM).termLevelQueryMakerMulti(keyValue.getString("field"), keyValue.get("value"), storeFields,CompoundQueryTypes.FILTER));
             }
         }
         return outer;

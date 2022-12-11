@@ -16,7 +16,6 @@ public class ClientConnection {
     static String password = Env.PASSWORD;
 
     public static RestHighLevelClient getClient(){
-//	        RestHighLevelClient client = ESSecuredClient.initESClient(ip, port, userName, password);
 
         RestHighLevelClient clientNew = ESSecuredClient.initEsClientNew(esIp, port, userName, password);
 
