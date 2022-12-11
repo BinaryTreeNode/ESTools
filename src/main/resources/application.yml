@@ -28,4 +28,4 @@ logging:
     file: "%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n"
 
 testfile:
-    fieldconfig: fieldConfigTest.txt
+  fieldconfig: fieldConfigTest.txt
