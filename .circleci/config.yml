@@ -22,11 +22,11 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - store_artifacts:
           path: target/
-          destination: circleci-demo-jar
+          destination: ESTools-jar
       - persist_to_workspace:
           root: ~/
           paths:
-            - circleci-demo
+            - ESTools
 
   test:
     docker:
@@ -57,13 +57,13 @@ jobs:
       - run: echo 'deploy sit2'
 
 workflows:
-  version: 2.1
-  circleci-demo-workflow:
+  version: 2
+  ESTools-workflow:
     jobs:
       - build:
           filters:
             branches:
-              only: master
+              only: main
       - test:
           requires:
             - build
@@ -76,11 +76,11 @@ workflows:
             - approval-deploy
           filters:
             branches:
-              only: master
+              only: main
       - deploy-site2:
           requires:
             - approval-deploy
           filters:
             branches:
-              only: master
+              only: main
 
