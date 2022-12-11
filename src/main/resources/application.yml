@@ -24,8 +24,8 @@ logging:
     org.hibernate: error
     com.bj58: info
   pattern:
-    console: "%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"
-    file: "%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n"
+    console: "%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n"
+    file: "%date{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger - %msg%n"
 
 testfile:
     fieldconfig: fieldConfigTest.txt
