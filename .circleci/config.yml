@@ -1,22 +1,20 @@
-version: '2.1'
+version: 2.1
 orbs:
-  orb-tools: circleci/orb-tools@11.1
+  orb-tools: circleci/orb-tools@11.5.1
+
+filters: &filters
+  tags:
+    only: /.*/
 
 workflows:
   lint-pack:
     jobs:
       - orb-tools/lint:
-          filters:
-            tags:
-              only: /.*/
+          filters: *filters
       - orb-tools/pack:
-          filters:
-            tags:
-              only: /.*/
+          filters: *filters
       - orb-tools/review:
-          filters:
-            tags:
-              only: /.*/
+          filters: *filters
       - orb-tools/publish:
           context: publishing-context
           filters:
