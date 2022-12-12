@@ -48,7 +48,7 @@ jobs:
           at: ~/ESTools
       - run: |
           cd ESTools
-          mvn clean test ${MVN_ARGS}
+          mvn clean test ${MVN_ARGS} -DskipTests=false
       - store_test_results:
           path: ESTools/target/surefire-reports
 

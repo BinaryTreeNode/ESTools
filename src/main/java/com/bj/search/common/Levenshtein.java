@@ -110,6 +110,9 @@ public class Levenshtein {
      * @return
      */
     public static float getSimilarityRatio(String orig, String target) {
+        if (orig == null || target == null) {
+            return 0;
+        }
         return 1 - (float) compare(orig, target) / Math.max(orig.length(), target.length());
     }
 
