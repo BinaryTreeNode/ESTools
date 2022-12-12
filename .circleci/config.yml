@@ -70,7 +70,6 @@ workflows:
     jobs:
       - build:
           context: SonarCloud
-      - build:
           filters:
             branches:
               only: main
