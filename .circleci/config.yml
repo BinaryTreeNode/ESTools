@@ -48,7 +48,7 @@ jobs:
           at: ~/ESTools
       - run: |
           cd ESTools
-          mvn -DskipTests=false clean test ${MVN_ARGS}
+          mvn -Dmaven.test.skip=false clean test ${MVN_ARGS}
       - store_test_results:
           path: ESTools/target/surefire-reports
 
