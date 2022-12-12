@@ -26,17 +26,12 @@ public class FieldConfig {
 
     @PostConstruct
     public void FieldConfigInit() throws IOException {
-        FileInputStream confFile = null;
-        try {
-        	String filePath = outputProperties.getFieldconfig();
-            confFile = new FileInputStream(filePath);
-            conf.load(confFile);
-            log.info("confFile=================="+filePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            confFile.close();
-        }
+        FileInputStream confFile;
+        String filePath = outputProperties.getFieldconfig();
+        confFile = new FileInputStream(filePath);
+        conf.load(confFile);
+        log.info("confFile=================="+filePath);
+        confFile.close();
     }
 
     public String getProperty(String key){

@@ -20,10 +20,7 @@ import springfox.documentation.spring.web.plugins.WebFluxRequestHandlerProvider;
 import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 /**
  * @author ：Yang Li
@@ -67,7 +64,7 @@ public class SwaggerConfiguration {
         if (ts.length > 0) {
             return new LinkedHashSet<>(Arrays.asList(ts));
         }
-        return null;
+        return Collections.emptySet();
     }
 
     @Bean
@@ -94,6 +91,9 @@ public class SwaggerConfiguration {
             private List<RequestMappingInfoHandlerMapping> getHandlerMappings(Object bean) {
                 try {
                     Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
+                    if (field == null) {
+                        return Collections.emptyList();
+                    }
                     field.setAccessible(true);
                     return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
                 } catch (IllegalArgumentException | IllegalAccessException e) {
