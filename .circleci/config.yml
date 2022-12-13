@@ -70,6 +70,10 @@ workflows:
     jobs:
       - build:
           context: SonarCloud
+          matrix:
+            parameters:
+              version: [ "0.1", "0.2", "0.3" ]
+              platform: [ "macos", "windows", "linux" ]
           filters:
             branches:
               only: main
