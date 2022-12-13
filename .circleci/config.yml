@@ -1,4 +1,4 @@
-version: '2.1'
+version: 2.1
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
 
   test:
     docker:
-      - image: cimg/openjdk:19.0.1
+      - image: cimg/openjdk:18.0.2
     working_directory: ~/ESTools
     environment:
       JVM_OPTS: -Xmx3200m
@@ -54,13 +54,13 @@ jobs:
 
   deploy-site1:
     docker:
-      - image: cimg/openjdk:19.0.1
+      - image: cimg/openjdk:18.0.2
     steps:
       - run: echo 'deploy sit1'
 
   deploy-site2:
     docker:
-      - image: cimg/openjdk:19.0.1
+      - image: cimg/openjdk:18.0.2
     steps:
       - run: echo 'deploy sit2'
 
@@ -70,10 +70,6 @@ workflows:
     jobs:
       - build:
           context: SonarCloud
-          matrix:
-            parameters:
-              version: [ "0.1", "0.2", "0.3" ]
-              platform: [ "macos", "windows", "linux" ]
           filters:
             branches:
               only: main
