@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -55,7 +55,7 @@ jobs:
         mvn versions:set -DnewVersion=$(cat tempvers.txt)
 
   test:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 18
@@ -73,13 +73,13 @@ jobs:
         mvn clean test -Dmaven.repo.local=.repo
 
   deploy-site1:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     steps:
     - run: |
         echo 'deploy sit1'
 
   deploy-site2:
-    runs-on: [self-hosted, linux, X64]
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo 'deploy sit2'
