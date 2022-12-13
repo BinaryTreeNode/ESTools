@@ -65,7 +65,7 @@ jobs:
       - run: echo 'deploy sit2'
 
 workflows:
-  version: 2
+  version: 2.1
   ESTools-workflow:
     jobs:
       - build:
