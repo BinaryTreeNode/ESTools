@@ -42,8 +42,6 @@ jobs:
       JVM_OPTS: -Xmx2g -Xmx4g
       MVN_ARGS: -Dmaven.repo.local=.repo
     steps:
-      - attach_workspace:
-          at: ~/ESTools
       - run: |
           cd ESTools
           mvn clean test ${MVN_ARGS}
