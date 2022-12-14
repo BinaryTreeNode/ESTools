@@ -43,7 +43,6 @@ jobs:
       MVN_ARGS: -Dmaven.repo.local=.repo
     steps:
       - run: |
-          cd ESTools
           mvn clean test ${MVN_ARGS}
       - store_test_results:
           path: ESTools/target/surefire-reports
