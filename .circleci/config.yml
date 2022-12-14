@@ -42,6 +42,7 @@ jobs:
       JVM_OPTS: -Xmx2g -Xmx4g
       MVN_ARGS: -Dmaven.repo.local=.repo
     steps:
+      - checkout
       - run: |
           mvn clean test ${MVN_ARGS}
       - store_test_results:
