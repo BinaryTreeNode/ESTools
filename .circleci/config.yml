@@ -35,8 +35,8 @@ jobs:
           name: "remove snapshot version"
 
   test:
-    docker:
-      - image: cimg/openjdk:18.0.2
+    machine:
+      image: ubuntu-2204:2022.10.2
     working_directory: ~/ESTools
     environment:
       JVM_OPTS: -Xmx2g -Xmx4g
