@@ -4,8 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author linxue02
- * @date 2022/11/10 10:02 上午
+ * @author ：Yang Li
+ * @description：
+ * @modified By：
+ * @version:
  */
 
 @Component
