@@ -14,15 +14,7 @@ jobs:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools
       - run: java --version
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
       - run: mvn clean install package ${MVN_ARGS}
-      - save_cache:
-          paths:
-            - .repo
-          key: v1-dependencies-{{ checksum "pom.xml" }}
       - store_artifacts:
           path: target/
           destination: ESTools-jar
