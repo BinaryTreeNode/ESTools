@@ -36,6 +36,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools
+    - name: Cache Maven packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml')}}
+        restore-keys: |
+          ${{ runner.os }}-m2-
+          ${{ runner.os }}-
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - run: mkdir -p target/github-artifact
@@ -60,6 +68,14 @@ jobs:
           cache: 'maven'
           architecture: x64
           distribution: 'adopt'
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-test-${{ hashFiles('**/pom.xml')}}
+          restore-keys: |
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
       - run: |
           mvn clean test -Dmaven.repo.local=.repo
 
