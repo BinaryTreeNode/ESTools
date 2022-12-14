@@ -51,14 +51,14 @@ jobs:
           path: ESTools/target/surefire-reports
 
   deploy-site1:
-    docker:
-      - image: cimg/openjdk:18.0.2
+    machine:
+      image: ubuntu-2204:2022.10.2
     steps:
       - run: echo 'deploy sit1'
 
   deploy-site2:
-    docker:
-      - image: cimg/openjdk:18.0.2
+    machine:
+      image: ubuntu-2204:2022.10.2
     steps:
       - run: echo 'deploy sit2'
 
@@ -83,11 +83,11 @@ workflows:
             - approval-deploy
           filters:
             branches:
-              only: main
+              only: dev
       - deploy-site2:
           requires:
             - approval-deploy
           filters:
             branches:
-              only: main
+              only: dev
 
