@@ -51,9 +51,11 @@ jobs:
       with:
         name: ESTools artifact
         path: target/
-    - run:
-        command: "if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then mvn versions:set -DremoveSnapshot; fi;"
-        name: "remove snapshot version"
+    - name: "remove snapshot version"
+      run: |
+        if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then
+            mvn versions:set -DremoveSnapshot;
+        fi;
 
   test:
     needs: Build
