@@ -45,12 +45,12 @@ jobs:
           ${{ runner.os }}-m2-
           ${{ runner.os }}-
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - run: mkdir -p target/github-artifact
-    - uses: actions/upload-artifact@v3
+      run: mvn -B package --file pom.xml -Dmaven.test.skip=true
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
       with:
         name: ESTools artifact
-        path: target/github-artifact
+        path: target/*.jar
     - run: |
         if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then
             mvn versions:set -DremoveSnapshot;

@@ -18,7 +18,7 @@ jobs:
           name: Analyze on SonarCloud
           command: mvn verify sonar:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools -Dmaven.test.skip=true
       - run: java --version
-      - run: mvn clean install package ${MVN_ARGS}
+      - run: mvn clean install package ${MVN_ARGS} -Dmaven.test.skip=true
       - save_cache:
           paths:
             - .repo
