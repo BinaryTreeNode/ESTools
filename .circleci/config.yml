@@ -10,11 +10,19 @@ jobs:
       MVN_ARGS: -Dmaven.repo.local=.repo
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
       - run:
           name: Analyze on SonarCloud
-          command: mvn verify sonar:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools
+          command: mvn verify sonar:sonar -Dsonar.projectKey=BinaryTreeNode_ESTools -Dmaven.test.skip=true
       - run: java --version
       - run: mvn clean install package ${MVN_ARGS}
+      - save_cache:
+          paths:
+            - .repo
+          key: v1-dependencies-{{ checksum "pom.xml" }}
       - store_artifacts:
           path: target/
           destination: ESTools-jar
