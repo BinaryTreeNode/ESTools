@@ -51,10 +51,9 @@ jobs:
       with:
         name: ESTools artifact
         path: target/
-    - run: |
-        if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then
-            mvn versions:set -DremoveSnapshot;
-        fi;
+    - run:
+        command: "if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then mvn versions:set -DremoveSnapshot; fi;"
+        name: "remove snapshot version"
 
   test:
     needs: Build
@@ -79,16 +78,16 @@ jobs:
       - run: |
           mvn clean test -Dmaven.repo.local=.repo
 
-  deploy-site1:
+  deploy-job1:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo 'deploy sit1'
+          echo 'deploy job1'
 
-  deploy-site2:
+  deploy-job2:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo 'deploy sit2'
+          echo 'deploy job2'

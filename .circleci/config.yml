@@ -50,17 +50,17 @@ jobs:
       - store_test_results:
           path: ESTools/target/surefire-reports
 
-  deploy-site1:
+  deploy-job1:
     machine:
       image: ubuntu-2204:2022.10.2
     steps:
-      - run: echo 'deploy sit1'
+      - run: echo 'deploy job1'
 
-  deploy-site2:
+  deploy-job2:
     machine:
       image: ubuntu-2204:2022.10.2
     steps:
-      - run: echo 'deploy sit2'
+      - run: echo 'deploy job2'
 
 workflows:
   version: 2.1
