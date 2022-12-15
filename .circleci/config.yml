@@ -78,13 +78,13 @@ workflows:
           type: approval
           requires:
             - test
-      - deploy-site1:
+      - deploy-job1:
           requires:
             - approval-deploy
           filters:
             branches:
               only: dev
-      - deploy-site2:
+      - deploy-job2:
           requires:
             - approval-deploy
           filters:
