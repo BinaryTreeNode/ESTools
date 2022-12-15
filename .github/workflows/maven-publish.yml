@@ -50,7 +50,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ESTools artifact
-        path: target/*.jar
+        path: target/
     - run: |
         if mvn -q -Dexec.executable=\"echo\" -Dexec.args='${project.version}' --non-recursive exec:exec | grep -q \"SNAPSHOT\"; then
             mvn versions:set -DremoveSnapshot;
