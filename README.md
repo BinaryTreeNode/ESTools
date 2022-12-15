@@ -6,3 +6,4 @@ This project mainly has two debugging interfaces, bool-query and Levenshtein. Th
 
 ## RUN
 
+- website: http://localhost:8888/doc.html
